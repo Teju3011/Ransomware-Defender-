@@ -1,0 +1,17 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "security-bg",
+      "description": "Abstract security network background",
+      "imageUrl": "https://picsum.photos/seed/sec1/1200/800",
+      "imageHint": "cyber security"
+    },
+    {
+      "id": "agent-avatar",
+      "description": "User or agent avatar placeholder",
+      "imageUrl": "https://picsum.photos/seed/agent/100/100",
+      "imageHint": "robot avatar"
+    }
+  ]
+}
