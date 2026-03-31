@@ -1,0 +1,169 @@
+
+{
+  "entities": {
+    "ApplicationSettings": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ApplicationSettings",
+      "type": "object",
+      "description": "Stores global configuration settings for the Ransomware Defender application.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "activeProtectionEnabled": {
+          "type": "boolean"
+        },
+        "automaticUpdatesEnabled": {
+          "type": "boolean"
+        },
+        "scanFrequencySetting": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "notifyOnThreatDetection": {
+          "type": "boolean"
+        },
+        "stopProcessOnDetection": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "activeProtectionEnabled",
+        "automaticUpdatesEnabled",
+        "scanFrequencySetting",
+        "language",
+        "notifyOnThreatDetection",
+        "stopProcessOnDetection"
+      ]
+    },
+    "ScanReport": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ScanReport",
+      "type": "object",
+      "description": "Records a summary of a completed security scan.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "scanType": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        },
+        "totalFilesScanned": {
+          "type": "number"
+        },
+        "totalThreatsDetected": {
+          "type": "number"
+        },
+        "durationSeconds": {
+          "type": "number"
+        },
+        "mitigationStatus": {
+          "type": "string",
+          "enum": ["Pending", "Mitigating", "Resolved"]
+        }
+      },
+      "required": [
+        "id",
+        "scanType",
+        "startTime",
+        "status",
+        "totalFilesScanned",
+        "totalThreatsDetected"
+      ]
+    },
+    "ScheduledScan": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ScheduledScan",
+      "type": "object",
+      "description": "Configuration for a recurring security scan.",
+      "properties": {
+        "id": { "type": "string" },
+        "hours": { "type": "string" },
+        "minutes": { "type": "string" },
+        "period": { "type": "string", "enum": ["AM", "PM"] },
+        "days": { "type": "array", "items": { "type": "string" } },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "hours", "minutes", "period", "days"]
+    },
+    "PrivacyStatus": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PrivacyStatus",
+      "type": "object",
+      "description": "Stores the results of the latest privacy audit.",
+      "properties": {
+        "id": { "type": "string" },
+        "score": { "type": "number" },
+        "lastAudit": { "type": "string", "format": "date-time" },
+        "monitorResults": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["id", "score", "lastAudit"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}/settings/{settingsId}",
+        "definition": {
+          "entityName": "ApplicationSettings",
+          "schema": {
+            "$ref": "#/backend/entities/ApplicationSettings"
+          },
+          "description": "User specific app settings."
+        }
+      },
+      {
+        "path": "/users/{userId}/scanReports/{scanReportId}",
+        "definition": {
+          "entityName": "ScanReport",
+          "schema": {
+            "$ref": "#/backend/entities/ScanReport"
+          },
+          "description": "Historical scan reports."
+        }
+      },
+      {
+        "path": "/users/{userId}/scheduledScans/{scheduledScanId}",
+        "definition": {
+          "entityName": "ScheduledScan",
+          "schema": {
+            "$ref": "#/backend/entities/ScheduledScan"
+          },
+          "description": "Recurring scan configurations."
+        }
+      },
+      {
+        "path": "/users/{userId}/privacyStatus/{statusId}",
+        "definition": {
+          "entityName": "PrivacyStatus",
+          "schema": {
+            "$ref": "#/backend/entities/PrivacyStatus"
+          },
+          "description": "Latest privacy audit data."
+        }
+      }
+    ]
+  }
+}
