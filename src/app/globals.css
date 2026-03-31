@@ -1,0 +1,58 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 23% 13%;
+    --foreground: 210 40% 98%;
+    --card: 225 23% 16%;
+    --card-foreground: 210 40% 98%;
+    --popover: 225 23% 13%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 221 86% 62%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 225 20% 25%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 225 20% 20%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 187 89% 67%;
+    --accent-foreground: 225 23% 13%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 225 20% 25%;
+    --input: 225 20% 25%;
+    --ring: 221 86% 62%;
+    --radius: 0.75rem;
+    --chart-1: 221 86% 62%;
+    --chart-2: 187 89% 67%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+.scan-button-glow {
+  box-shadow: 0 0 20px rgba(77, 127, 240, 0.4);
+  transition: all 0.3s ease;
+}
+
+.scan-button-glow:hover {
+  box-shadow: 0 0 40px rgba(77, 127, 240, 0.6);
+}
+
+.sidebar-glass {
+  background: rgba(26, 30, 41, 0.8);
+  backdrop-filter: blur(10px);
+}
